@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/install
+
+Name: baxter_ikfast_right_arm_plugin
+Description: Description of baxter_ikfast_right_arm_plugin
+Version: 1.0.6
+Cflags: 
+Libs: -L/home/rhomni/bax_ws/bax_local/install/lib 
+Requires: moveit_core pluginlib roscpp tf_conversions

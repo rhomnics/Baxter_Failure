@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/clam_moveit_config/share/clam_moveit_config/cmake/clam_moveit_configConfig.cmake

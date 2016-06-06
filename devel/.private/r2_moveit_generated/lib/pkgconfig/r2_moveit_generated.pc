@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/devel/.private/r2_moveit_generated
+
+Name: r2_moveit_generated
+Description: Description of r2_moveit_generated
+Version: 1.0.6
+Cflags: 
+Libs: -L/home/rhomni/bax_ws/bax_local/devel/.private/r2_moveit_generated/lib 
+Requires: 

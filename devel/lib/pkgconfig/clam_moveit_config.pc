@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/clam_moveit_config/lib/pkgconfig/clam_moveit_config.pc
