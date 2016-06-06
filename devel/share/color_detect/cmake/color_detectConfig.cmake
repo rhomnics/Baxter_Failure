@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/color_detect/share/color_detect/cmake/color_detectConfig.cmake

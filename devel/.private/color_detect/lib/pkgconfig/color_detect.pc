@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/devel/.private/color_detect
+
+Name: color_detect
+Description: Description of color_detect
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/rhomni/bax_ws/bax_local/devel/.private/color_detect/lib 
+Requires: 
