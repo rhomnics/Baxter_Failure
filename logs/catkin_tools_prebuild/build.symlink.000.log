@@ -1,0 +1,8 @@
+Symlinking /home/rhomni/bax_ws/bax_local/devel/./setup.zsh
+Symlinking /home/rhomni/bax_ws/bax_local/devel/./_setup_util.py
+Symlinking /home/rhomni/bax_ws/bax_local/devel/./setup.bash
+Symlinking /home/rhomni/bax_ws/bax_local/devel/./setup.sh
+Symlinking /home/rhomni/bax_ws/bax_local/devel/./env.sh
+Symlinking /home/rhomni/bax_ws/bax_local/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig.cmake
+Symlinking /home/rhomni/bax_ws/bax_local/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig-version.cmake
+Symlinking /home/rhomni/bax_ws/bax_local/devel/lib/pkgconfig/catkin_tools_prebuild.pc

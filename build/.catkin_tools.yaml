@@ -1,0 +1,6 @@
+devel_space: /home/rhomni/bax_ws/bax_local/devel
+install: false
+install_space: /home/rhomni/bax_ws/bax_local/install
+profile: default
+source_space: /home/rhomni/bax_ws/bax_local/src
+workspace: /home/rhomni/bax_ws/bax_local

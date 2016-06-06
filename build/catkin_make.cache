@@ -1,2 +1,0 @@
-
--DCATKIN_DEVEL_PREFIX=/home/rhomni/bax_ws/bax_local/devel -DCMAKE_INSTALL_PREFIX=/home/rhomni/bax_ws/bax_local/install -G Unix Makefiles
