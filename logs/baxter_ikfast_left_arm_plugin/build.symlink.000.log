@@ -1,4 +1,0 @@
-Symlinking /home/rhomni/bax_ws/bax_local/devel/share/baxter_ikfast_left_arm_plugin/cmake/baxter_ikfast_left_arm_pluginConfig-version.cmake
-Symlinking /home/rhomni/bax_ws/bax_local/devel/share/baxter_ikfast_left_arm_plugin/cmake/baxter_ikfast_left_arm_pluginConfig.cmake
-Symlinking /home/rhomni/bax_ws/bax_local/devel/lib/libbaxter_left_arm_moveit_ikfast_plugin.so
-Symlinking /home/rhomni/bax_ws/bax_local/devel/lib/pkgconfig/baxter_ikfast_left_arm_plugin.pc

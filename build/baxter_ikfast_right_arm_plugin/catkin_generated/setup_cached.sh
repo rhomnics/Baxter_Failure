@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/rhomni/bax_ws/bax_local/build/baxter_ikfast_right_arm_plugin"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/rhomni/bax_ws/bax_local/src/moveit_robots/baxter/baxter_ikfast_right_arm_plugin:$ROS_PACKAGE_PATH"

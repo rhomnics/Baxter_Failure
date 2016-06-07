@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples
+
+Name: failure_examples
+Description: Description of failure_examples
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples/lib 
+Requires: 
