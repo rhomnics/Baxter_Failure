@@ -352,8 +352,9 @@ Related examples:
     parser = argparse.ArgumentParser(formatter_class=arg_fmt,
                                      description=main.__doc__,
                                      epilog=epilog)
+    
     parser.add_argument(
-        '-f', '--file', metavar='PATH', required=True,
+        '-f', '--file', action='append', dest='files', default=[], metavar='PATH', required=True,
         help='path to input file'
     )
     parser.add_argument(
@@ -362,6 +363,7 @@ Related examples:
     )
     # remove ROS args and filename (sys.arv[0]) for argparse
     args = parser.parse_args(rospy.myargv()[1:])
+    print('files =', args.files[0])
 
     print("Initializing node... ")
     rospy.init_node("rsdk_joint_trajectory_file_playback")
@@ -370,23 +372,23 @@ Related examples:
     print("Enabling robot... ")
     rs.enable()
     print("Running. Ctrl-c to quit")
-
-    traj = Trajectory()
-    traj.parse_file(path.expanduser(args.file))
-    #for safe interrupt handling
-    rospy.on_shutdown(traj.stop)
-    result = True
-    loop_cnt = 1
-    loopstr = str(args.loops)
-    if args.loops == 0:
-        args.loops = float('inf')
-        loopstr = "forever"
-    while (result == True and loop_cnt <= args.loops
-           and not rospy.is_shutdown()):
-        print("Playback loop %d of %s" % (loop_cnt, loopstr,))
-        traj.start()
-        result = traj.wait()
-        loop_cnt = loop_cnt + 1
+    for file in args.files:
+        traj = Trajectory()
+        traj.parse_file(path.expanduser(file))
+        #for safe interrupt handling
+        rospy.on_shutdown(traj.stop)
+        result = True
+        loop_cnt = 1
+        loopstr = str(args.loops)
+        if args.loops == 0:
+            args.loops = float('inf')
+            loopstr = "forever"
+        while (result == True and loop_cnt <= args.loops
+               and not rospy.is_shutdown()):
+            print("Playback loop %d of %s" % (loop_cnt, loopstr,))
+            traj.start()
+            result = traj.wait()
+            loop_cnt = loop_cnt + 1
     print("Exiting - File Playback Complete")
 
 if __name__ == "__main__":
