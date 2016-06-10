@@ -28,9 +28,9 @@
 import rospy
 
 import baxter_interface
+import baxter_external_devices
 
 from baxter_interface import CHECK_VERSION
-
 
 class JointRecorder(object):
     def __init__(self, filename, rate):
@@ -153,6 +153,7 @@ class JointRecorder(object):
 
                     f.write(','.join([str(x) for x in angles_left]) + ',')
                     f.write(str(self._gripper_left.position()) + ',')
+                    print("wrote left")
 
                     f.write(','.join([str(x) for x in angles_right]) + ',')
                     f.write(str(self._gripper_right.position()) + '\n')
