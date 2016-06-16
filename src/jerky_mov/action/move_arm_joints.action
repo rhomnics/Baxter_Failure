@@ -1,0 +1,12 @@
+#goal definition
+sensor_msgs/JointState[] joints
+uint8 type
+bool wait
+
+---
+#result definition
+bool complete
+
+---
+#feedback
+float32 percent_complete

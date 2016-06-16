@@ -1,0 +1,6 @@
+<launch>
+	<!-- start the arm control server -->
+	<node name="arm_controller" pkg="jerky_mov" type="start_controller.py" output="screen" />
+	<!-- start trajectory server -->
+	<node name="trajectory_server" pkg="jerky_mov" type="start_trajectory.py" output="screen" />
+</launch>
