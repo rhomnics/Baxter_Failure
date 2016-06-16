@@ -67,7 +67,6 @@ class Waypoints(object):
         self._io_right_upper = baxter_interface.DigitalIO('right_upper_button')
         self._navigator_io = baxter_interface.Navigator("right")
 
-
         # Verify Grippers Have No Errors and are Calibrated
         if self._gripper_left.error():
             self._gripper_left.reset()
@@ -110,8 +109,6 @@ class Waypoints(object):
             print("Waypoint Recorded")
             self._waypoints.append(self._limb_left.joint_angles())
             self._waypoints.append(self._limb_right.joint_angles())
-            self._waypoints.append(self._gripper_left.position())
-            self._waypoints.append(self._gripper_right.position())
 
     def _stop_recording(self, value):
         """
@@ -146,15 +143,7 @@ class Waypoints(object):
 
         # Loop until waypoints are done being recorded ('Rethink' Button Press)
         while self._is_recording and not rospy.is_shutdown():
-            if self._io_left_lower.state:
-                self._gripper_left.open()
-            elif self._io_left_upper.state:
-                self._gripper_left.close()
-            if self._io_right_lower.state:
-                self._gripper_right.open()
-            elif self._io_right_upper.state:
-                self._gripper_right.close()
-            #rospy.sleep(1.0)
+            rospy.sleep(1.0)
 
         with open(self.file, 'wb') as f:
             f.write(json.dumps(self._waypoints))
@@ -178,13 +167,12 @@ class Waypoints(object):
         except Exception:
             pass
 
-    def move_thread(self, limb, angle, queue, gripper, grip, timeout=15.0):
+    def move_thread(self, limb, angle, queue, timeout=15.0):
         try:
-            #print(str(limb) + "this the the limb \n")
-            #print(str(angle)+ "this is the  pos \n")
+            print(str(limb) + "this the the limb \n")
+            print(str(angle)+ "this is the  pos \n")
             limb.move_to_joint_positions(angle, timeout)
-            gripper.command_position(grip)
-            #print("move left")
+            print("move left")
             queue.put(None)
         except Exception, exception:
             queue.put(traceback.format_exc())
@@ -213,9 +201,7 @@ class Waypoints(object):
             right_queue = Queue.Queue()
             right = self._limb_right
             left = self._limb_left
-            rgrip=self._gripper_right
-            lgrip=self._gripper_left
-            #print(str(left) + "this the the left \n")
+            print(str(left) + "this the the left \n")
 
             # Set joint position speed ratio for execution
             self._limb.set_joint_position_speed(self._speed)
@@ -223,51 +209,39 @@ class Waypoints(object):
             waypoints=json.loads(source_file)
             left_waypoints=list()
             right_waypoints=list()
-            left_grip=list()
-            right_grip=list()
             for idx, waypoint in enumerate(waypoints):
-                if idx%4==0:
+                if idx%2==0:
                     left_waypoints.append(waypoint)
-                elif (idx-1)%4==0:
-                    right_waypoints.append(waypoint)
-                elif idx%2==0:
-                    left_grip.append(waypoint)
                 else:
-                    right_grip.append(waypoint)
-
+                    right_waypoints.append(waypoint)
 
             # Loop until program is exited
             loop = 0
             while not rospy.is_shutdown():
                 loop += 1
                 print("Waypoint playback loop #%d " % (loop,))
-                for lw, rw, lg, rg in zip(left_waypoints, right_waypoints, left_grip, right_grip):
+                for lw, rw in zip(left_waypoints, right_waypoints):
                     if rospy.is_shutdown():
                         break
-                    #print(str(lw)+'\n')
-                    #print(str(rw)+'\n')
-                    #print(str(lg)+'\n')
-                    #print(str(rg)+'\n')
-
-                    #print(str(zl)+ "this is the  left pos \n")
+                    print(str(lw)+'\n')
+                    print(str(rw)+'\n')
+                    zl=dict(zip(left.joint_names(), lw))
+                    zr=dict(zip(right.joint_names(), rw))
+                    print(str(zl)+ "this is the  left pos \n")
 
                     left_thread = threading.Thread(
                         target=self.move_thread,
                         args=(self._limb_left,
                               lw,
-                              left_queue,
-                              lgrip,
-                              lg
+                              left_queue
                               )
                     )
-                    #print("made left thread")
+                    print("made left thread")
                     right_thread = threading.Thread(
                         target=self.move_thread,
                         args=(self._limb_right,
                               rw,
-                              right_queue,
-                              rgrip, 
-                              rg
+                              right_queue
                               )
                     )
                     left_thread.daemon = True
