@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/rhomni/bax_ws/bax_local/build/failure_examples"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/rhomni/bax_ws/bax_local/devel/.private/failure_examples/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/rhomni/bax_ws/bax_local/src/failure_examples:$ROS_PACKAGE_PATH"

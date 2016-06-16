@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/share/common-lisp/ros/jerky_mov/msg/move_arm_jointsAction.lisp

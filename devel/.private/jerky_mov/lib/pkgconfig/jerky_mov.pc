@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov
+
+Name: jerky_mov
+Description: Description of jerky_mov
+Version: 0.0.0
+Cflags: -I/home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/include
+Libs: -L/home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/lib 
+Requires: 

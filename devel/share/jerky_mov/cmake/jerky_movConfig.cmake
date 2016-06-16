@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/share/jerky_mov/cmake/jerky_movConfig.cmake

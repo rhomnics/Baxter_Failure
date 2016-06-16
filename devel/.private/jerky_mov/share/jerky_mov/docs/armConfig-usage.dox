@@ -1,0 +1,48 @@
+\subsubsection usage Usage
+\verbatim
+<node name="controller" pkg="jerky_mov" type="controller">
+  <param name="left_s0_p" type="double" value="25.0" />
+  <param name="left_s1_p" type="double" value="60.0" />
+  <param name="left_e0_p" type="double" value="40.0" />
+  <param name="left_e1_p" type="double" value="24.0" />
+  <param name="left_w0_p" type="double" value="7.2" />
+  <param name="left_w1_p" type="double" value="10.0" />
+  <param name="left_w2_p" type="double" value="2.5" />
+  <param name="right_s0_p" type="double" value="25.0" />
+  <param name="right_s1_p" type="double" value="60.0" />
+  <param name="right_e0_p" type="double" value="40.0" />
+  <param name="right_e1_p" type="double" value="24.0" />
+  <param name="right_w0_p" type="double" value="7.2" />
+  <param name="right_w1_p" type="double" value="10.0" />
+  <param name="right_w2_p" type="double" value="2.5" />
+  <param name="left_s0_d" type="double" value="8.0" />
+  <param name="left_s1_d" type="double" value="7.5" />
+  <param name="left_e0_d" type="double" value="3.0" />
+  <param name="left_e1_d" type="double" value="3.0" />
+  <param name="left_w0_d" type="double" value="0.5" />
+  <param name="left_w1_d" type="double" value="0.8" />
+  <param name="left_w2_d" type="double" value="0.4" />
+  <param name="right_s0_d" type="double" value="8.0" />
+  <param name="right_s1_d" type="double" value="7.5" />
+  <param name="right_e0_d" type="double" value="3.0" />
+  <param name="right_e1_d" type="double" value="3.0" />
+  <param name="right_w0_d" type="double" value="0.5" />
+  <param name="right_w1_d" type="double" value="0.8" />
+  <param name="right_w2_d" type="double" value="0.4" />
+  <param name="left_s0_i" type="double" value="1.0" />
+  <param name="left_s1_i" type="double" value="0.5" />
+  <param name="left_e0_i" type="double" value="0.1" />
+  <param name="left_e1_i" type="double" value="1.0" />
+  <param name="left_w0_i" type="double" value="0.1" />
+  <param name="left_w1_i" type="double" value="1.0" />
+  <param name="left_w2_i" type="double" value="0.2" />
+  <param name="right_s0_i" type="double" value="1.0" />
+  <param name="right_s1_i" type="double" value="0.5" />
+  <param name="right_e0_i" type="double" value="0.1" />
+  <param name="right_e1_i" type="double" value="1.0" />
+  <param name="right_w0_i" type="double" value="0.1" />
+  <param name="right_w1_i" type="double" value="1.0" />
+  <param name="right_w2_i" type="double" value="0.2" />
+</node>
+\endverbatim
+
