@@ -1,0 +1,27 @@
+[  4%] [  4%] Built target geometry_msgs_generate_messages_lisp
+[34m[1mGenerating dynamic reconfigure files from cfg/controller.cfg: /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/include/jerky_mov/controllerConfig.h /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/lib/python2.7/dist-packages/jerky_mov/cfg/controllerConfig.py
+[0m[  4%] Built target std_msgs_generate_messages_lisp
+[  4%] Built target actionlib_msgs_generate_messages_lisp
+[  4%] [  4%] Built target sensor_msgs_generate_messages_lisp
+Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsAction
+Generating reconfiguration files for arm in jerky_mov
+Wrote header file in /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/include/jerky_mov/armConfig.h
+[  4%] [  4%] [  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsGoal
+Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionGoal
+Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionFeedback
+[  4%] Built target jerky_mov_gencfg
+[  4%] Built target std_msgs_generate_messages_cpp
+[  4%] Built target sensor_msgs_generate_messages_cpp
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsFeedback
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsResult
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionResult
+[  4%] Built target actionlib_msgs_generate_messages_cpp
+[  4%] [  4%] Built target geometry_msgs_generate_messages_py
+[  4%] Built target sensor_msgs_generate_messages_py
+Built target geometry_msgs_generate_messages_cpp
+[  4%] [  4%] Built target actionlib_msgs_generate_messages_py
+Built target std_msgs_generate_messages_py
+[ 65%] [ 69%] Built target jerky_mov_generate_messages_py
+Built target jerky_mov_generate_messages_lisp
+[100%] Built target jerky_mov_generate_messages_cpp
+[100%] Built target jerky_mov_generate_messages

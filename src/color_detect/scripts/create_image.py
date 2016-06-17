@@ -8,10 +8,12 @@ import rospkg
 import cv_bridge
 import rospy
 import actionlib
+import baxter_interface
+from baxter_interface import Limb
 from sensor_msgs.msg import (
     Image,
 )
-from baxter_common import EndpointState 
+from baxter_core_msgs.msg import EndpointState 
 
 import numpy
 import time 
@@ -21,108 +23,137 @@ import time
 #from baxter_interface import CameraController
 #from sensor_msgs.msg import Image
 
-PACKAGE_NAME = "color_detect"
-StartDIMX=1024
-StartDIMY=600
 
-rospack = rospkg.RosPack()
-pack_path = rospack.get_path(PACKAGE_NAME)
-base_path = os.path.join(pack_path,'scripts') 
-eye_name='eyes.png'
-brow_name="eyebrows.png"
-eye_path = os.path.join(base_path, eye_name)
-brow_path=os.path.join(base_path, brow_name)
 
-#rospy.init_node('get_camera_image')
+class EyeMovement(object):
+    def __init__(self, limb="left"):
+        self.arm=limb
+        self._limb=baxter_interface.Limb(self.arm)
+        self._head=baxter_interface.CameraController(head_camera)
+        self.PACKAGE_NAME="color_detect"
+        self.StartDIMX=1024
+        self.StartDIMY=600
+        self.browDIFF=0
 
-#right_camera = CameraController('right_hand_camera')
-# boundaries = [
-# 	([17, 15, 100], [50, 56, 200]),
-# 	([86, 31, 4], [220, 88, 50]),
-# 	([25, 146, 190], [62, 174, 250]),
-# 	([103, 86, 65], [145, 133, 128])
-# ]
-# low1=[10, 10, 70]
-# up1=[70, 70, 205] #190
-# lower1 = np.array(low1, dtype = "uint8")
-# upper1 = np.array(up1, dtype = "uint8")
-# low2=[10, 10, 125]
-# up2=[120, 120, 205] #190
-# lower2 = np.array(low2, dtype = "uint8")
-# upper2 = np.array(up2, dtype = "uint8")
-# head_camera = CameraController('head_camera')
+        self.headX=
+        self.headY=
+        self.headZ=
 
-#right_camera.close()
+        self.rospack = rospkg.RosPack()
+        self.pack_path = rospack.get_path(PACKAGE_NAME)
+        self.base_path = os.path.join(pack_path,'images') 
+        self.eye_name='eyes.png'
+        self.brow_name="eyebrows.png"
+        self.filter_name="eye_filter.png"
+        self.borders_name="eye_circles.png"
+        self.eye_path = os.path.join(base_path, eye_name)
+        self.brow_path=os.path.join(base_path, brow_name)
+        self.filter_path = os.path.join(base_path, filter_name)
+        self.borders_path=os.path.join(base_path, borders_name)
+        self.filter_image=cv2.imread(filter_path)
+        self.borders_image=cv2.imread(borders_path)
+        self.eye_image = cv2.imread(eye_path) 
+        self.brow_image = cv2.imread(brow_path) 
+        self.borders_and_brow=cv2.bitwise_and(borders_image, brow_image)
+
+
+        self.rows, self.cols = self.eye_image.shape
+
+        self.pub=rospy.Publisher('/robot/xdisplay', Image, latch=True, queue_size=1)
+        self.done=False
+
+
+
+    def fillBlank(self, img, diffx, diffy):
+      
+        if diffy!=0:
+            if diffy>0:
+                print("down")
+                cv2.rectangle(img, (0,0), (1024, diffy), (255,255,255), -1) 
+            else:
+                print("up")
+                cv2.rectangle(img, (0,600+diffy), (1024, 600), (255,255,255), -1)
+        if diffx!=0:
+            if diffx>0:
+                print("right")
+                cv2.rectangle(img, (0,0), (diffx, 600), (255,255,255), -1) 
+            else:
+                print("left")
+                cv2.rectangle(img, (1024+diffx,0), (1024, 600), (255,255,255), -1)
+
+    def generateImage(self, diffx, diffy):
+        M = numpy.float32([[1,0,diffx],[0,1,diffy]])
+        dst = cv2.warpAffine(self.eye_image,M,(self.cols,self.rows))
+        fillBlank(dst, diffx, diffy)
+        inverse_eyes=cv2.bitwise_not(self.filter_image)
+        just_eyes=cv2.bitwise_or(inverse_eyes, dst)
+        complete_pic=cv2.bitwise_and(just_eyes, self.borders_and_brow)
+        return complete_pic 
+
+
+
 rospy.init_node('EyeMove')
 pub=rospy.Publisher('/robot/xdisplay', Image, latch=True, queue_size=1)
 done=False
 eye_image = cv2.imread(eye_path) 
-#cv2.imshow('eye', eye_image)
-#cv2.waitKey(0) 
-#while not done:
-for i in range(0, 100):
-    #eye_image = cv2.imread(eye_path) 
+brow_image = cv2.imread(brow_path) 
+borders_and_brow=cv2.bitwise_and(borders_image, brow_image)
+
+#def collisionDetect
+
+for i in range(0, 20):
+
+    diffx= ((i%4)-1) * 30 * ((i+1)%2)
+    diffy= ((i%4)-2) * 15 * (i%2)
+  
+    print(diffx)
+    print(diffy)
     rows, cols, etc = eye_image.shape
-    if i%2 == 0:
-        M = numpy.float32([[1,0,-50],[0,1,0]])
-        dst = cv2.warpAffine(eye_image,M,(cols,rows))
-        cv2.rectangle(dst,(974,0),(1024,600),(255,255,255), -1)
-    else:
-        dst=eye_image
-    brow_image = cv2.imread(brow_path) 
-    collision_test=cv2.bitwise_or(eye_image, brow_image)
-    row_avg = numpy.average(collision_test, axis=0)
-    col_avg = numpy.average(row_avg, axis=0)
-    print(col_avg)
-    complete_pic=cv2.bitwise_and(dst, brow_image)
+    #if i%2 == 0:
+    M = numpy.float32([[1,0,diffx],[0,1,diffy]])
+    dst = cv2.warpAffine(eye_image,M,(cols,rows))
+    fillBlank(dst, diffx, diffy)
+    #cv2.rectangle(dst,(974,0),(1024,600),(255,255,255), -1)
+    #else:
+    #dst=eye_image
+    #brow_image = cv2.imread(brow_path) 
+    #collision_test=cv2.bitwise_or(eye_image, brow_image)
+    #row_min = numpy.amin(collision_test, axis=0)
+    #col_min= numpy.amin(row_min, axis=0)
+    #abs_min=numpy.amin(col_min, axis=0)
+    #print(abs_min)
+    inverse_eyes=cv2.bitwise_not(filter_image)
+    just_eyes=cv2.bitwise_or(inverse_eyes, dst)
+   
+    complete_pic=cv2.bitwise_and(just_eyes, borders_and_brow)
 
 
-#cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 
-    #cv2.imwrite('eye_move.png', start_image)
 
-    msg = cv_bridge.CvBridge().cv2_to_imgmsg(complete_pic, encoding="bgr8")
-    pub.publish(msg)
 
+
+   # msg = cv_bridge.CvBridge().cv2_to_imgmsg(complete_pic, encoding="bgr8")
+    #print(msg)
     #pub.publish(msg)
-
-    #cv2.imshow('eye', complete_pic)
-    #cv2.waitKey(1) 
+    cv2.imshow('eye', complete_pic)
+    cv2.waitKey(1) 
     time.sleep(1)
-
-#cv2.imshow('eye_shift', dst)
-#cv2.imshow('brow', brow_image)
-#cv2.imshow('collision', collision_test)
-#cv2.imshow('complete', complete_pic)
-
-    
-    #print('cant load image')
-#cv2.imshow('image', start_image)
+    if i % 4 == 0:
+        inverse_eyes=cv2.bitwise_not(filter_image)
+        just_eyes=cv2.bitwise_or(inverse_eyes, eye_image)
+        
+        complete_pic=cv2.bitwise_and(just_eyes, borders_and_brow)
+        #msg = cv_bridge.CvBridge().cv2_to_imgmsg(complete_pic, encoding="bgr8")
+        #print(msg)
+        #pub.publish(msg)
+        cv2.imshow('eye', complete_pic)
+        cv2.waitKey(1) 
+        time.sleep(1)
 cv2.destroyAllWindows()
 
+    
 
-#def get_img():
-    #global camera_image
-    #camera_image = msg_to_cv(msg)
-   
-    #mask = cv2.inRange(camera_image, lower, upper)
-	#output = cv2.bitwise_and(camera_image, camera_image, mask = mask)
-    #median = cv2.medianBlur(camera_image,5)
-  #  cv2.imshow('image', start_image)
-    #cv2.waitKey(1) 
-	#cv2.namedWindow('image', cv2.WINDOW_NORMAL)
-	#cv2.imshow('image', camera_image)
-	#cv2.waitKey(0)   
 
-# def msg_to_cv(msg):
-# 	return cv_bridge.CvBridge().imgmsg_to_cv2(msg, desired_encoding='bgr8')
-
-#camera_subscriber = rospy.Subscriber( 'cameras/left_hand_camera/image', Image, get_img)
-#rospy.spin()
-#while camera_image==None:
-#	pass
-
-#get_img()
-#rospy.spin()
 #cv2.destroyAllWindows()
-#print camera_image
+
+
