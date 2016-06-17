@@ -33,8 +33,6 @@ class EyeMovement(object):
         self.arm=limb
         self._limb=baxter_interface.Limb(self.arm)
         self._head=baxter_interface.Head()
-        self._right=baxter_interface.Limb("right")
-        self._left=baxter_interface.Limb("left")
         self.PACKAGE_NAME="color_detect"
         self.StartDIMX=1024
         self.StartDIMY=600
@@ -48,9 +46,6 @@ class EyeMovement(object):
         self.headX=.187
         self.headY=.018
         self.headZ=.750
-
-        self.rightVar=.5
-        self.leftVar=.5
 
         #self.now = rospy.Time.now()
         #self.tf_listener.waitForTransform("base", "head_camera",
@@ -110,13 +105,10 @@ class EyeMovement(object):
         dist=math.fabs(self.headX-x)
         self.periph=(dist*math.tan(0.872665)) + .001
 
-    def getCombinedCoord(self):
-
-
     def calculateHShift(self, y):
         dist=0
         sign=1
-        print(self.headX)
+       # print(self.headX)
         if (self.headY-y) > 0:
             sign=-1
         if math.fabs(self.headY-y) > self.periph:
@@ -193,7 +185,7 @@ class EyeMovement(object):
             print("Disabling robot...")
     
         return True
-    def getEnpoint(self, limb="left"):
+    def getEnpoint(self):
         pos=self._limb.endpoint_pose()
         #print(pos['position'])
         return pos['position']

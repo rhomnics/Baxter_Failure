@@ -71,8 +71,8 @@ borders_and_brow=cv2.bitwise_and(borders_image, brow_image)
 
 for i in range(0, 20):
 
-    diffx= ((i%4)-1) * 30 * ((i+1)%2)
-    diffy= ((i%4)-2) * 15 * (i%2)
+    diffx= ((i%4)-1) * 60* ((i+1)%2)
+    diffy= ((i%4)-2) * 40 * (i%2)
   
     print(diffx)
     print(diffy)

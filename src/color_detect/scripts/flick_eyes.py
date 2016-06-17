@@ -27,7 +27,7 @@ StartDIMY=600
 
 rospack = rospkg.RosPack()
 pack_path = rospack.get_path(PACKAGE_NAME)
-base_path = os.path.join(pack_path,'scripts') 
+base_path = os.path.join(pack_path,'images') 
 eye_name='eyes.png'
 brow_name="eyebrows.png"
 eye_path = os.path.join(base_path, eye_name)
@@ -60,7 +60,7 @@ eye_image = cv2.imread(eye_path)
 #cv2.imshow('eye', eye_image)
 #cv2.waitKey(0) 
 #while not done:
-for i in range(0, 100):
+for i in range(0, 20):
     #eye_image = cv2.imread(eye_path) 
     rows, cols, etc = eye_image.shape
     if i%2 == 0:
