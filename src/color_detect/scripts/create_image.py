@@ -11,7 +11,9 @@ import rospy
 import math
 import tf
 import actionlib
+#import statistics
 import baxter_interface
+import time
 from baxter_interface import Limb
 from sensor_msgs.msg import (
     Image,
@@ -33,6 +35,8 @@ class EyeMovement(object):
         self.arm=limb
         self._limb=baxter_interface.Limb(self.arm)
         self._head=baxter_interface.Head()
+        self.angle=0.0
+        self._head.set_pan(self.angle)
         self._right=baxter_interface.Limb("right")
         self._left=baxter_interface.Limb("left")
         self.PACKAGE_NAME="color_detect"
@@ -40,33 +44,46 @@ class EyeMovement(object):
         self.StartDIMY=600
         self.browDIFF=0
 
-        #self.tf_listener=tf.TransformListener()
-        #frames = ""
-        #while len(frames) < 2:
-        #    frames=self.tf_listener.getFrameStrings()
+        self.tf_listener=tf.TransformListener()
+        frames = ""
+        while len(frames) < 2:
+            frames=self.tf_listener.getFrameStrings()
 
         self.headX=.187
         self.headY=.018
         self.headZ=.750
 
-        self.rightVar=.5
-        self.leftVar=.5
+        #ratio ranges between 0 and 1 and indicates what percentage of the view is held be the left hand
+        self.limbRatio=.5
+        #vector perpendicular to robot's screen for calculating distance of hand from face
+        self.depthVector=[1,0]
 
-        #self.now = rospy.Time.now()
-        #self.tf_listener.waitForTransform("base", "head_camera",
-        #                      self.now, rospy.Duration(100.0));
+        #vector paralell to robot's face vector starts out parallel to y axis
 
-        #try:
-        #    (trans, ori)= self.tf_listener.lookupTransform('reference/base', 'reference/head_camera', rospy.Time(0))
-        #    (x,y,z)=trans
-        #    self.headX=x
-        #    self.headY=y
-        #    self.headZ=z    
+        self.screenVector=[0,-1]
 
-        #except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-        #    print("fail")
-            #continue
+        #for far is the screen vector is from 0,0, is initially -.018
+        self.offset=-.187
 
+
+        self.now = rospy.Time.now()
+        self.tf_listener.waitForTransform("base", "head_camera",
+                              self.now, rospy.Duration(100.0));
+
+        try:
+           (trans, ori)= self.tf_listener.lookupTransform('reference/base', 'reference/head_camera', rospy.Time(0))
+           (x,y,z)=trans
+           self.headX=x
+           self.headY=y
+           self.headZ=z    
+
+        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+           print("fail")
+           #continue
+
+        ##NOTE##
+        # self.periph is how far the robot's periphial vision extends given the distance of the hand from
+        #it's face 
         self.periph=0 
 
         self.rospack = rospkg.RosPack()
@@ -105,33 +122,60 @@ class EyeMovement(object):
 
         except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
             print("fail")
-    def calculatePeriph(self, x):
+    def calculatePeriph(self, x, y):
 
-        dist=math.fabs(self.headX-x)
-        self.periph=(dist*math.tan(0.872665)) + .001
+        xVal=self.screenVector[1]*x
+        yVal=self.screenVector[0]*y*(-1)
+
+        #dist=math.fabs(self.headX-x)
+        dist=math.fabs(xVal+yVal+self.offset)
+        #print(dist)
+        self.periph=(dist*math.tan(0.523599)) + .001
+    def setVectors(self):
+        self.depthVector=[math.cos(self.angle), math.sin(self.angle)]
+        self.screenVector=[math.sin(self.angle), -math.cos(self.angle)]
+        self.offset=0-((self.screenVector[1]*self.headX) - (self.screenVector[0]*self.headY))
+
 
     def getCombinedCoord(self):
+        posR=self.getEnpoint("right")
+        posL=self.getEnpoint("left")
+        
 
-
-    def calculateHShift(self, y):
+    def project(self, r):
+        nominator=(r[0]*self.screenVector[0])+(r[1]*self.screenVector[1])
+        denominator=1
+        if denominator==0:
+            return 0
+        else:
+            return (nominator/denominator)
+    def calculateHShift(self, x, y):
         dist=0
         sign=1
-        print(self.headX)
-        if (self.headY-y) > 0:
+        r=[self.headX-x, self.headY-y]
+        dist=self.project(r)
+        #print(self.headX)
+        #if (self.headY-y) > 0:
+        if dist < 0:
             sign=-1
-        if math.fabs(self.headY-y) > self.periph:
-
+        #if math.fabs(self.headY-y) > self.periph:
+        if math.fabs(dist) > self.periph:
             dist=self.periph*sign
             #baxter_interface.Head().pan(0.261799)
-            #self._head.set_pan(1.0472*sign)
-            #while self._head.panning():
-            #    pass
-            #self.getNewHeadCoords
+            self.angle=self.angle+(0.261799*sign)
+            self._head.set_pan(self.angle)
+            while self._head.panning():
+               pass
+            self.getNewHeadCoords()
+            self.angle=self._head.pan()
+           # print(self.angle)
+            self.setVectors()
 
             #print("head coords changed")
 
         else:
-            dist=self.headY-y
+            #dist=self.headY-y
+            dist=dist
 
         ratio = math.fabs(dist/self.periph)
 
@@ -193,10 +237,53 @@ class EyeMovement(object):
             print("Disabling robot...")
     
         return True
-    def getEnpoint(self, limb="left"):
-        pos=self._limb.endpoint_pose()
+    def getEndpoint(self):
+        posl=self._left.endpoint_pose()
+        posr=self._right.endpoint_pose()
+        (xl,yl,zl)=posl['position']
+        (xr,yr,zr)=posr['position']
+        x=(xl*self.limbRatio)+(xr * (1-self.limbRatio))
+        y=(yl*self.limbRatio)+(yr * (1-self.limbRatio))
+        z=(zl*self.limbRatio)+(zr * (1-self.limbRatio))
+        pos=(x,y,z)
+        #print("got xyz")
         #print(pos['position'])
+        return (x,y,z)
+
+    def getLimbEndpoint(self, limb):
+        pos=self._limb.endpoint_pose()
         return pos['position']
+
+    def calculateMovementRatio(self, prevpos, newpos):
+        right_delta=math.sqrt(math.fsum([math.pow((prevpos[1][0]-newpos[1][0]), 2), 
+            math.pow((prevpos[1][1]-newpos[1][1]), 2), 
+            math.pow((prevpos[1][2]-newpos[1][2]), 2)]))
+        left_delta=math.sqrt(math.fsum([math.pow((prevpos[0][0]-newpos[0][0]), 2), 
+            math.pow((prevpos[0][1]-newpos[0][1]), 2), 
+            math.pow((prevpos[0][2]-newpos[0][2]), 2)]))
+        right_veloctiy=self._right.joint_velocities()
+        left_velocity=self._left.joint_velocities()
+        sumr=0
+        suml=0
+        for joint, val in right_veloctiy.items():
+            #print(val)
+            sumr+=math.fabs(val)
+        for joint, val in left_velocity.items():
+            suml+=math.fabs(val)
+
+        #total_change=left_delta + right_delta
+        print(sumr)
+        if math.fabs(suml-sumr)<.1:
+            self.limbRatio=(self.limbRatio*.9) +(.5*.1)
+        elif sumr>suml:
+            self.limbRatio= max(self.limbRatio-.5, 0.0)
+           # print("i'm moving")
+
+        else:
+            self.limbRatio= min(self.limbRatio+.5, 1.0)
+            #print('fuuuuuu')
+        #print(self.limbRatio)
+        
 
 
 
@@ -208,14 +295,28 @@ def main():
 
     rospy.on_shutdown(moveEye.clean_shutdown)
     print("Starting Eye Movements")
+    prevpos=[moveEye.getLimbEndpoint('left'), moveEye.getLimbEndpoint('right')]
+    lastime=time.time()
     while not rospy.is_shutdown():
-        pos=moveEye.getEnpoint()
+        if time.time()-lastime > .5:
+
+            newpos=[moveEye.getLimbEndpoint("left"), moveEye.getLimbEndpoint('right')]
+            moveEye.calculateMovementRatio(prevpos, newpos)
+            prevpos=newpos
+            lastime=time.time()
+        pos=moveEye.getEndpoint()
+  
         #print(pos)
         (x,y,z)=pos
-        #print("got xyz")
-        moveEye.calculatePeriph(x)
 
-        xpos=moveEye.calculateHShift(y)
+        
+        
+
+
+        #print("got xyz")
+        moveEye.calculatePeriph(x,y)
+
+        xpos=moveEye.calculateHShift(x, y)
         ypos=moveEye.calculateVShift(z)
         comp=moveEye.generateImage(xpos, ypos)
         moveEye.sendImage(comp)
