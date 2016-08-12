@@ -224,7 +224,7 @@ namespace serialization
       stream.next(m.wait);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct move_arm_jointsGoal_
 
 } // namespace serialization

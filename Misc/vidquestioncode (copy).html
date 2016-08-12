@@ -1,0 +1,176 @@
+<p><!-- 1. The <iframe> (and video player) will replace this <div> tag. --></p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div id="placeholder"> </div>
+
+<div style="margin: auto; width: 53%; padding: 10px;">
+<div id="player"> </div>
+</div>
+
+<script>
+
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+
+      var player;
+	  var YTdeferred = $.Deferred();
+ 		window.onYouTubeIframeAPIReady = function() {
+   		YTdeferred.resolve(window.YT);
+ 	};
+//	  var readyDoc=false;
+//	  $(document).ready(function(){readyDoc=true;});
+      //function onYouTubeIframeAPIReady() {
+      $(document).ready(function() {
+                  //Find a random number (here between 1 and 4)
+
+            //document.getElementById("answer791575X14X172").style.display='none';
+            var url="https://bridge.apt.ri.cmu.edu/node";
+            var gender="{INSERTANS:791575X10X138}";
+            if(gender=="Female"){
+              url=url+"?gender=f";
+             // alert(url);
+            }
+           else if(gender=="Male"){
+              url=url+"?gender=m";
+              //alert(url);
+            }
+            else{
+              url=url;
+            }
+            //alert(gender);
+            // $('#answer791575X11X223').val(2);
+            // $("#vidtime").hide();
+
+            //alert("i got here")
+            var randNumber = -1;
+            $.get(url, function(data, status){
+              			randNumber=parseInt(String(data));
+                        document.getElementById("placeholder").innerHTML=data;
+
+                        document.getElementById("placeholder").style.display='none';
+                        YTdeferred.done(function(YT) {
+                                  var videoarray=["pTOC_q0NLTk",
+                                            "XUClIslXKZo",
+                                            "almQVIIEo64",
+                                            "V0lw3qylVfY"];
+                              //var randNumber = Math.floor(Math.random()*4 );
+                                  var tempNum=-1;
+                              //if(!readyDoc){
+                                  //  alert("oh no");
+                                  //  while(!readyDoc){
+                              //  var randNumber = Math.floor(Math.random()*4 );
+                                  //  }
+                                 // }
+                                  tempNum=randNumber;
+
+                                  //randNumber=parseInt(String
+                                  //         (document.getElementById("placeholder").innerHTML));
+                                if(!(randNumber>=0)){
+                                    alert("Error Loading Video Please Refresh Page");
+                                  }
+                                  //alert(tempNum + ":"+ randNumber);
+                                $('input#answer791575X14X172a_a').val(randNumber);
+                                  //$('input#answer889857X20X205').val(randNumber);
+                                  player = new YT.Player('player', {
+                                    height: '315',
+                                    width: '560',
+                                    videoId: videoarray[randNumber],
+                                    events: {
+                                      'onReady': onPlayerReady,
+                                      'onStateChange': onPlayerStateChange
+                                    }
+                                  });
+
+                                });
+                        //alert("help");
+                });
+
+      });
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+          $('input#answer791575X14X172a_b').val(player.getDuration());
+          $('input#answer791575X14X172a_c').val(-1);
+          $('input#answer791575X14X172a_d').val(-1);
+          $('input#answer791575X14X172a_e').val(-1);
+          $('input#answer791575X14X172a_f').val(-1);
+          var elem =document.getElementById('column1');
+          elem.scrollIntoView(true);
+          //alert("this was called");
+          player.mute();
+          event.target.playVideo();
+
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          //setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+	var neverBeenClicked=true;
+  function myFunction(whichone) {
+    if(neverBeenClicked){
+      document.getElementById("demo2").innerHTML = "You Have Chosen to Hit the Emergency Stop. Please Keeping watching till the end of the video before pressing next.";
+      whichone.style.opacity="1.0";
+      whichone.style.border="2px solid #550000";
+      whichone.style.backgroundColor="#660000";
+      document.getElementById("intervene").style.display="none"
+      $('input#answer791575X14X172a_c').val(player.getCurrentTime());
+      $('input#answer791575X14X172a_e').val(player.getCurrentTime()/player.getDuration());
+      neverBeenClicked=false;
+    }
+
+  }
+  function myFunction2(whichone) {
+    if(neverBeenClicked){
+      document.getElementById("demo").innerHTML = "You Have Chosen to Intervene. Please Keeping watching till the end of the video before pressing next.";
+      whichone.style.opacity="1.0";
+      whichone.style.border="2px solid #880500";
+      whichone.style.backgroundColor="#888800";
+      document.getElementById("stop").style.display="none"
+      $('input#answer791575X14X172a_d').val(player.getCurrentTime());
+      $('input#answer791575X14X172a_f').val(player.getCurrentTime()/player.getDuration());
+      neverBeenClicked=false;
+    }
+  }
+ </script>
+
+
+<p id="jump"> </p>
+<div align="center" id="contentBox" style="margin:0px auto; width:70%">
+
+<div id="column1" style="float:left; margin:0; width:50%;"><button id="stop" onclick="myFunction(this)" onmouseout="bold(this)" onmouseover="pale(this)" style="background-color:red;width:200px;height:80px;font-size:40px; color:black; moz-border-radius:15px; -webkit-border-radius: 15px; border: 2px solid #990000; padding: 5px;" type="button">STOP!</button>
+
+<p id="demo" value="cheers"></p> 
+</div>
+
+<div id="column2" style="float:left; margin:0;width:50%;"><button id="intervene" onclick="myFunction2(this)" onmouseout="bold(this)" onmouseover="pale(this)" style="background-color:#EEEE00;width:200px;height:80px;font-size:30px; color:black; moz-border-radius:15px; -webkit-border-radius: 15px; border: 2px solid orange; padding: 5px;" type="button">Intervene</button>
+
+<p id="demo2" value="cheers"></p>
+</div>
+</div>
+
+<script>
+function pale(whichone){
+	whichone.style.opacity="0.6";
+}
+</script><script>
+function bold(whichone){
+	whichone.style.opacity="1.0";
+}
+</script>

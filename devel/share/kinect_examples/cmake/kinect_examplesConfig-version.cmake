@@ -1,0 +1,1 @@
+/home/rhomni/bax_ws/bax_local/devel/.private/kinect_examples/share/kinect_examples/cmake/kinect_examplesConfig-version.cmake

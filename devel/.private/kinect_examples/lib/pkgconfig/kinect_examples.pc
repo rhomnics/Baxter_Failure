@@ -1,0 +1,8 @@
+prefix=/home/rhomni/bax_ws/bax_local/devel/.private/kinect_examples
+
+Name: kinect_examples
+Description: Description of kinect_examples
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/rhomni/bax_ws/bax_local/devel/.private/kinect_examples/lib 
+Requires: 

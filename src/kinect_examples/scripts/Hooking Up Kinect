@@ -1,0 +1,38 @@
+Hooking Up Kinect
+
+1. First make sure both usb and external power source for kinect are plugged in
+2. go into command line and type in "lsusb" make sure it lists the following
+
+Microsoft Corp. Xbox NUI Camera
+Microsoft Corp. Xbox NUI Motor
+Microsoft Corp. Xbox NUI Audio
+
+
+3. Follow this tutorial:
+http://www.instructables.com/id/Hooking-up-a-Kinect-to-your-Computer-Using-Ubuntu/
+
+Note: you might have some trouble on page 9 step 3 of this tutorial, my advice, before advancing to this part do the following
+
+go to /etc
+
+go to /etc/ld.so.conf.d/
+
+create a file in it called RawKinectViewer.conf    
+enter the following into that file
+
+Note this is just where I place my Kinect-2.8-001 file, you could have placed it
+somewhere else. It could also be a different version, though when you go to download it 
+I'd recommend this one as it's stable and compatible with everything we're working with.
+
+/home/{YOURUSERNAME}/Kinect-2.8-001/lib/x86_64-linux-gnu
+
+4. Follow these instructions but only as far as downloading all the dependencies and such (particularly OpenKinect)
+http://www.instructables.com/id/Invisible-Piano/step5/Keyboard-Anywhere-Dependencies-and-Downloads/
+
+5. This youtube video is a good demo of using contours for hand-dection there's a link to the code and explanation in the description
+https://www.youtube.com/watch?v=K5NViyzeE4o
+
+to better understand contours use this tutorial:
+
+http://www.codeproject.com/Articles/782602/Beginners-guide-to-understand-Fingertips-counting
+

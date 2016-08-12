@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-#import cv_bridge
-#import time
+
 import baxter_interface
 import roslib
 import os
@@ -23,10 +22,6 @@ from baxter_core_msgs.msg import EndpointState
 import numpy
 import time 
 
-#import rospy
-
-#from baxter_interface import CameraController
-#from sensor_msgs.msg import Image
 
 
 
@@ -40,15 +35,20 @@ class EyeMovement(object):
         self._right=baxter_interface.Limb("right")
         self._left=baxter_interface.Limb("left")
         self.PACKAGE_NAME="color_detect"
+
+        #these are the expected dimensions of the image being fed to Baxter
         self.StartDIMX=1024
         self.StartDIMY=600
-        self.browDIFF=0
-
+  
+        #this tf listener is used to judge the head's position relative to the body. which changes
+        #when the head is rotated
         self.tf_listener=tf.TransformListener()
         frames = ""
         while len(frames) < 2:
             frames=self.tf_listener.getFrameStrings()
 
+
+        #head's relative position to the body
         self.headX=.187
         self.headY=.018
         self.headZ=.750
@@ -66,10 +66,18 @@ class EyeMovement(object):
         self.offset=-.187
 
 
+        #this sectioon is used to find the head's initial position in relation to the body more
+        #specifically the head camera
         self.now = rospy.Time.now()
-        self.tf_listener.waitForTransform("base", "head_camera",
-                              self.now, rospy.Duration(100.0));
+        # self.tf_listener.waitForTransform("base", "head_camera",
+        #                       self.now, rospy.Duration(500.0));
+        _time = rospy.Time()
+        while not self.tf_listener.canTransform("base", "head_camera", _time):
+            _time = rospy.Time()
+        print("Loop")
 
+        print("success")
+        print(str(rospy.Time.now() - self.now))
         try:
            (trans, ori)= self.tf_listener.lookupTransform('reference/base', 'reference/head_camera', rospy.Time(0))
            (x,y,z)=trans
@@ -86,6 +94,12 @@ class EyeMovement(object):
         #it's face 
         self.periph=0 
 
+
+        #this is section loads the images used to create the moving eye effect
+        #eye_image contains only the pupils, the filter_image is used to create the layered effect,
+        #that makes the pupils appear to be behind the borders of the eyes. The final image, as it's name
+        #suggests contains the eyes borders and brow, which is layered on top of the filtered image after
+        #each shift
         self.rospack = rospkg.RosPack()
         self.pack_path = self.rospack.get_path(self.PACKAGE_NAME)
         self.base_path = os.path.join(self.pack_path,'images') 
@@ -100,17 +114,22 @@ class EyeMovement(object):
         self.filter_image=cv2.imread(self.filter_path)
         self.borders_image=cv2.imread(self.borders_path)
         self.eye_image = cv2.imread(self.eye_path) 
-        self.brow_image = cv2.imread(self.brow_path) 
-        self.borders_and_brow=cv2.bitwise_and(self.borders_image, self.brow_image)
+        #self.brow_image = cv2.imread(self.brow_path) 
+        self.borders_and_brow=self.borders_image#cv2.bitwise_and(self.borders_image, self.brow_image)
 
+        
         self._rs = baxter_interface.RobotEnable()
         self._init_state = self._rs.state().enabled
 
-
+        #this just gets the dimentionality of the eye_image (note this should be 1024x600)
         self.rows, self.cols, self.o = self.eye_image.shape
 
+        #the publisher that actually sends the robot to Baxter's screen
         self.pub=rospy.Publisher('/robot/xdisplay', Image, latch=True, queue_size=1)
         self.done=False
+
+        #keeps track of how long baxter has been immobile
+        self.stillCounter=0
 
     def getNewHeadCoords(self):
         try:
@@ -130,7 +149,7 @@ class EyeMovement(object):
         #dist=math.fabs(self.headX-x)
         dist=math.fabs(xVal+yVal+self.offset)
         #print(dist)
-        self.periph=(dist*math.tan(0.523599)) + .001
+        self.periph=(dist*math.tan(0.261799)) + .001
     def setVectors(self):
         self.depthVector=[math.cos(self.angle), math.sin(self.angle)]
         self.screenVector=[math.sin(self.angle), -math.cos(self.angle)]
@@ -163,6 +182,10 @@ class EyeMovement(object):
             dist=self.periph*sign
             #baxter_interface.Head().pan(0.261799)
             self.angle=self.angle+(0.261799*sign)
+            if self.angle < -1.4:
+                self.angle=-1.4
+            if self.angle > 1.4:
+                self.angle=1.4
             self._head.set_pan(self.angle)
             while self._head.panning():
                pass
@@ -179,7 +202,7 @@ class EyeMovement(object):
 
         ratio = math.fabs(dist/self.periph)
 
-        hShift=int(60*ratio)*sign
+        hShift=int(30*ratio)*sign
         return hShift
     def calculateVShift(self, z):
         dist=0
@@ -206,7 +229,7 @@ class EyeMovement(object):
             if diffy>0:
                 #print("down")
                 cv2.rectangle(img, (0,0), (1024, diffy), (255,255,255), -1) 
-            else:
+            else: 
                # print("up")
                 cv2.rectangle(img, (0,600+diffy), (1024, 600), (255,255,255), -1)
         if diffx!=0:
@@ -223,6 +246,7 @@ class EyeMovement(object):
         self.fillBlank(dst, diffx, diffy)
         inverse_eyes=cv2.bitwise_not(self.filter_image)
         just_eyes=cv2.bitwise_or(inverse_eyes, dst)
+        #switch here 
         complete_pic=cv2.bitwise_and(just_eyes, self.borders_and_brow)
         return complete_pic 
 
@@ -254,6 +278,8 @@ class EyeMovement(object):
         pos=self._limb.endpoint_pose()
         return pos['position']
 
+    #def flickEyes
+
     def calculateMovementRatio(self, prevpos, newpos):
         right_delta=math.sqrt(math.fsum([math.pow((prevpos[1][0]-newpos[1][0]), 2), 
             math.pow((prevpos[1][1]-newpos[1][1]), 2), 
@@ -272,18 +298,61 @@ class EyeMovement(object):
             suml+=math.fabs(val)
 
         #total_change=left_delta + right_delta
-        print(sumr)
+        #print(suml)
+        if suml < .1 or sumr < .1:
+            self.stillCounter+=1
+            if self.stillCounter>=8:
+                self.flickEyes()
+                self.stillCounter= 0
+        else:
+            self.stillCounter= 0
+        #print(sumr)
         if math.fabs(suml-sumr)<.1:
-            self.limbRatio=(self.limbRatio*.9) +(.5*.1)
+            self.limbRatio=self.limbRatio #+(.5*.1)
+           # print("cheers")
         elif sumr>suml:
             self.limbRatio= max(self.limbRatio-.5, 0.0)
+           # print("nomp")
            # print("i'm moving")
 
         else:
             self.limbRatio= min(self.limbRatio+.5, 1.0)
+           # print("nomp")
             #print('fuuuuuu')
         #print(self.limbRatio)
-        
+    def flickEyes(self):
+        print("flick")
+        right_veloctiy=self._right.joint_velocities()
+        left_velocity=self._left.joint_velocities()
+        sumr=0
+        suml=0
+        for joint, val in right_veloctiy.items():
+            #print(val)
+            sumr+=math.fabs(val)
+        for joint, val in left_velocity.items():
+            suml+=math.fabs(val)
+        switch=0
+        sign=1
+        while sumr<.15 and suml<.15 and not rospy.is_shutdown():
+            if switch>200:
+                sign=-1*sign
+                switch=0
+
+            img=self.generateImage(60*sign, 25)
+            self.sendImage(img)
+            switch+=1
+            right_veloctiy=self._right.joint_velocities()
+            left_velocity=self._left.joint_velocities()
+            sumr=0
+            suml=0
+            for joint, val in right_veloctiy.items():
+                #print(val)
+                sumr+=math.fabs(val)
+            for joint, val in left_velocity.items():
+                suml+=math.fabs(val)
+            #print("left:"+str(suml))
+            #print("right:"+str(sumr))
+
 
 
 

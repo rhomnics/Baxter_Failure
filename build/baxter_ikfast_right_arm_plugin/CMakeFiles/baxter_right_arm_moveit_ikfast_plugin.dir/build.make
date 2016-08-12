@@ -146,7 +146,8 @@ baxter_right_arm_moveit_ikfast_plugin_EXTERNAL_OBJECTS =
 /home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/x86_64-linux-gnu/libpthread.so
 /home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
 /home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/liblapack.so.3gf
-/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/libblas.so.3gf
+/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/libf77blas.so.3gf
+/home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: /usr/lib/libatlas.so.3gf
 /home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so: CMakeFiles/baxter_right_arm_moveit_ikfast_plugin.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library /home/rhomni/bax_ws/bax_local/devel/.private/baxter_ikfast_right_arm_plugin/lib/libbaxter_right_arm_moveit_ikfast_plugin.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/baxter_right_arm_moveit_ikfast_plugin.dir/link.txt --verbose=$(VERBOSE)

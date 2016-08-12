@@ -161,7 +161,7 @@ namespace serialization
       stream.next(m.percent_complete);
     }
 
-    ROS_DECLARE_ALLINONE_SERIALIZER;
+    ROS_DECLARE_ALLINONE_SERIALIZER
   }; // struct move_arm_jointsFeedback_
 
 } // namespace serialization

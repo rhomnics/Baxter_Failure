@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+ <LimeSurveyDocType>Question</LimeSurveyDocType>
+ <DBVersion>258</DBVersion>
+ <languages>
+  <language>en</language>
+ </languages>
+ <questions>
+  <fields>
+   <fieldname>qid</fieldname>
+   <fieldname>parent_qid</fieldname>
+   <fieldname>sid</fieldname>
+   <fieldname>gid</fieldname>
+   <fieldname>type</fieldname>
+   <fieldname>title</fieldname>
+   <fieldname>question</fieldname>
+   <fieldname>preg</fieldname>
+   <fieldname>help</fieldname>
+   <fieldname>other</fieldname>
+   <fieldname>mandatory</fieldname>
+   <fieldname>question_order</fieldname>
+   <fieldname>language</fieldname>
+   <fieldname>scale_id</fieldname>
+   <fieldname>same_default</fieldname>
+   <fieldname>relevance</fieldname>
+   <fieldname>modulename</fieldname>
+  </fields>
+  <rows>
+   <row>
+    <qid><![CDATA[172]]></qid>
+    <parent_qid><![CDATA[0]]></parent_qid>
+    <sid><![CDATA[791575]]></sid>
+    <gid><![CDATA[14]]></gid>
+    <type><![CDATA[S]]></type>
+    <title><![CDATA[video]]></title>
+    <question><![CDATA[<script>
+$(document).ready(
+  function(){
+  //Find a random number (here between 1 and 4)
+  	var videoarray=["pTOC_q0NLTk",
+                  "XUClIslXKZo",
+                  "almQVIIEo64",
+                  "V0lw3qylVfY"];
+	var randNumber = Math.floor(Math.random()*4 );
+    $('input#answer791575X14X172').val(randNumber);
+	document.getElementById("answer791575X14X172").style.display='none';
+    vidString='<p style="text-align: center;"><iframe allowfullscreen="" 			frameborder="0" height="315" src="https://www.youtube.com/embed/' + videoarray[randNumber] +'?autoplay=1" width="560"></iframe></p>';
+ 	document.getElementById('vid').innerHTML = vidString;
+ 	var elem =document.getElementById('jump');
+    elem.scrollIntoView(true); }
+);
+</script>
+<p id="jump"> </p>
+ 
+
+<div id="vid"> </div>
+
+<div align="center" id="contentBox" style="margin:0px auto; width:70%">
+<div id="column1" style="float:left; margin:0; width:50%;"><button id="stop" onclick="myFunction(this)" onmouseout="bold(this)" onmouseover="pale(this)" style="background-color:red;width:200px;height:80px;font-size:40px; color:black; moz-border-radius:15px; -webkit-border-radius: 15px; border: 2px solid #990000; padding: 5px;" type="button">STOP!</button>
+
+<p id="demo" value="cheers">Cheers!</p>
+</div>
+
+<div id="column2" style="float:left; margin:0;width:50%;"><button id="stop" onclick="myFunction2(this)" onmouseout="bold(this)" onmouseover="pale(this)" style="background-color:#EEEE00;width:200px;height:80px;font-size:30px; color:black; moz-border-radius:15px; -webkit-border-radius: 15px; border: 2px solid orange; padding: 5px;" type="button">Intervene</button>
+
+<p id="demo2" value="cheers">Cheers!</p>
+</div>
+</div>
+<script>
+function pale(whichone){
+	whichone.style.opacity="0.6";
+}
+</script><script>
+function bold(whichone){
+	whichone.style.opacity="1.0";
+}
+</script><script>
+function myFunction(whichone) {
+    document.getElementById("demo").innerHTML = "Hello World";
+  	whichone.style.opacity="1.0";
+  	whichone.style.border="2px solid #550000";
+    whichone.style.backgroundColor="#660000";
+}
+</script><script>
+function myFunction2(whichone) {
+    document.getElementById("demo2").innerHTML = "Hello World";
+  	whichone.style.opacity="1.0";
+  	whichone.style.border="2px solid #880500";
+    whichone.style.backgroundColor="#888800";
+}
+</script>]]></question>
+    <preg/>
+    <help/>
+    <other><![CDATA[N]]></other>
+    <mandatory><![CDATA[N]]></mandatory>
+    <question_order><![CDATA[1]]></question_order>
+    <language><![CDATA[en]]></language>
+    <scale_id><![CDATA[0]]></scale_id>
+    <same_default><![CDATA[0]]></same_default>
+    <relevance><![CDATA[1]]></relevance>
+    <modulename/>
+   </row>
+  </rows>
+ </questions>
+</document>

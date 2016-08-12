@@ -1,0 +1,42 @@
+[  4%] [34m[1mGenerating dynamic reconfigure files from cfg/controller.cfg: /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/include/jerky_mov/controllerConfig.h /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/lib/python2.7/dist-packages/jerky_mov/cfg/controllerConfig.py
+[0mGenerating reconfiguration files for arm in jerky_mov
+Wrote header file in /home/rhomni/bax_ws/bax_local/devel/.private/jerky_mov/include/jerky_mov/armConfig.h
+[  4%] Built target jerky_mov_gencfg
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsFeedback
+[  4%] Built target geometry_msgs_generate_messages_lisp
+[  4%] Built target actionlib_msgs_generate_messages_lisp
+[  4%] Built target std_msgs_generate_messages_lisp
+[  4%] Built target sensor_msgs_generate_messages_lisp
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionResult
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsResult
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionFeedback
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsActionGoal
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsGoal
+[  4%] Built target _jerky_mov_generate_messages_check_deps_move_arm_jointsAction
+[  4%] Built target actionlib_msgs_generate_messages_cpp
+[  4%] Built target geometry_msgs_generate_messages_cpp
+[  4%] Built target std_msgs_generate_messages_cpp
+[  4%] Built target sensor_msgs_generate_messages_cpp
+[  4%] Built target geometry_msgs_generate_messages_py
+[  4%] Built target actionlib_msgs_generate_messages_py
+[  4%] Built target std_msgs_generate_messages_py
+[  4%] Built target sensor_msgs_generate_messages_py
+[ 34%] Built target jerky_mov_generate_messages_lisp
+[ 39%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsAction.msg
+[0m[ 43%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsGoal.msg
+[0m[ 47%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsResult.msg
+[0m[ 52%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsActionFeedback.msg
+[0m[ 56%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsFeedback.msg
+[0m[ 60%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsActionGoal.msg
+[0m[ 65%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsAction
+[0m[ 69%] [34m[1mGenerating C++ code from jerky_mov/move_arm_jointsActionResult.msg
+[0m[ 73%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsGoal
+[0m[ 78%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsResult
+[0m[ 82%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsActionFeedback
+[0m[ 82%] Built target jerky_mov_generate_messages_cpp
+[ 86%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsFeedback
+[0m[ 91%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsActionGoal
+[0m[ 95%] [34m[1mGenerating Python from MSG jerky_mov/move_arm_jointsActionResult
+[0m[100%] [34m[1mGenerating Python msg __init__.py for jerky_mov
+[0m[100%] Built target jerky_mov_generate_messages_py
+[100%] Built target jerky_mov_generate_messages

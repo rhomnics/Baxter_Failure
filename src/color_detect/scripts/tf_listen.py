@@ -21,11 +21,22 @@ now = rospy.Time.now()
 #ct = t.getLatestCommonTime("reference/base", "reference/head_camera")
 #print(type(ct))
 #print(ct)
-t.waitForTransform("base", "head_camera",
-                              now, rospy.Duration(100.0));
+# t.waitForTransform("right_hand", "head_camera",
+#                               now, rospy.Duration(100.0));
+_time = rospy.Time()
+while not t.canTransform("base", "head_camera", _time):
+	_time = rospy.Time()
+	print("Loop")
+
+
+#t.waitForTransform("base", "head_camera",
+#                              time, rospy.Duration(24 * 60 * 60));
+
+print("success")
+print(str(rospy.Time.now() - now))
 while not rospy.is_shutdown():
 	try:
-		(trans, ori)= t.lookupTransform('reference/base', 'reference/head_camera', rospy.Time(0))
+		(trans, ori)= t.lookupTransform('reference/right_hand', 'reference/head_camera', rospy.Time(0))
 		(x,y,z)=trans
 		print(x)
 

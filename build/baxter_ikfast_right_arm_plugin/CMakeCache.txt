@@ -24,6 +24,9 @@ BLAS_acml_LIBRARY:FILEPATH=BLAS_acml_LIBRARY-NOTFOUND
 BLAS_acml_mp_LIBRARY:FILEPATH=BLAS_acml_mp_LIBRARY-NOTFOUND
 
 //Path to a library.
+BLAS_atlas_LIBRARY:FILEPATH=/usr/lib/libatlas.so.3gf
+
+//Path to a library.
 BLAS_blas_LIBRARY:FILEPATH=/usr/lib/libblas.so.3gf
 
 //Path to a library.
@@ -39,7 +42,7 @@ BLAS_dxml_LIBRARY:FILEPATH=BLAS_dxml_LIBRARY-NOTFOUND
 BLAS_essl_LIBRARY:FILEPATH=BLAS_essl_LIBRARY-NOTFOUND
 
 //Path to a library.
-BLAS_f77blas_LIBRARY:FILEPATH=BLAS_f77blas_LIBRARY-NOTFOUND
+BLAS_f77blas_LIBRARY:FILEPATH=/usr/lib/libf77blas.so.3gf
 
 //Path to a library.
 BLAS_goto2_LIBRARY:FILEPATH=BLAS_goto2_LIBRARY-NOTFOUND
@@ -315,7 +318,7 @@ baxter_ikfast_right_arm_plugin_BINARY_DIR:STATIC=/home/rhomni/bax_ws/bax_local/b
 baxter_ikfast_right_arm_plugin_SOURCE_DIR:STATIC=/home/rhomni/bax_ws/bax_local/src/moveit_robots/baxter/baxter_ikfast_right_arm_plugin
 
 //Dependencies for the target
-baxter_right_arm_moveit_ikfast_plugin_LIB_DEPENDS:STATIC=general;/opt/ros/indigo/lib/libmoveit_exceptions.so;general;/opt/ros/indigo/lib/libmoveit_background_processing.so;general;/opt/ros/indigo/lib/libmoveit_kinematics_base.so;general;/opt/ros/indigo/lib/libmoveit_robot_model.so;general;/opt/ros/indigo/lib/libmoveit_transforms.so;general;/opt/ros/indigo/lib/libmoveit_robot_state.so;general;/opt/ros/indigo/lib/libmoveit_robot_trajectory.so;general;/opt/ros/indigo/lib/libmoveit_planning_interface.so;general;/opt/ros/indigo/lib/libmoveit_collision_detection.so;general;/opt/ros/indigo/lib/libmoveit_collision_detection_fcl.so;general;/opt/ros/indigo/lib/libmoveit_kinematic_constraints.so;general;/opt/ros/indigo/lib/libmoveit_planning_scene.so;general;/opt/ros/indigo/lib/libmoveit_constraint_samplers.so;general;/opt/ros/indigo/lib/libmoveit_planning_request_adapter.so;general;/opt/ros/indigo/lib/libmoveit_profiler.so;general;/opt/ros/indigo/lib/libmoveit_trajectory_processing.so;general;/opt/ros/indigo/lib/libmoveit_distance_field.so;general;/opt/ros/indigo/lib/libmoveit_kinematics_metrics.so;general;/opt/ros/indigo/lib/libmoveit_dynamics_solver.so;general;/usr/lib/x86_64-linux-gnu/libboost_iostreams.so;general;/opt/ros/indigo/lib/libgeometric_shapes.so;general;/opt/ros/indigo/lib/liboctomap.so;general;/opt/ros/indigo/lib/liboctomath.so;general;/opt/ros/indigo/lib/libeigen_conversions.so;general;/opt/ros/indigo/lib/librandom_numbers.so;general;/opt/ros/indigo/lib/libkdl_parser.so;general;/opt/ros/indigo/lib/liborocos-kdl.so;general;/opt/ros/indigo/lib/liburdf.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_world.so;general;/opt/ros/indigo/lib/librosconsole_bridge.so;general;/opt/ros/indigo/lib/libsrdfdom.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/indigo/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/indigo/lib/libroslib.so;general;/opt/ros/indigo/lib/libtf_conversions.so;general;/opt/ros/indigo/lib/libkdl_conversions.so;general;/opt/ros/indigo/lib/liborocos-kdl.so.1.3.0;general;/opt/ros/indigo/lib/libtf.so;general;/opt/ros/indigo/lib/libtf2_ros.so;general;/opt/ros/indigo/lib/libactionlib.so;general;/opt/ros/indigo/lib/libmessage_filters.so;general;/opt/ros/indigo/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/indigo/lib/libxmlrpcpp.so;general;/opt/ros/indigo/lib/libtf2.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;general;/usr/lib/liblapack.so.3gf;general;/usr/lib/libblas.so.3gf;
+baxter_right_arm_moveit_ikfast_plugin_LIB_DEPENDS:STATIC=general;/opt/ros/indigo/lib/libmoveit_exceptions.so;general;/opt/ros/indigo/lib/libmoveit_background_processing.so;general;/opt/ros/indigo/lib/libmoveit_kinematics_base.so;general;/opt/ros/indigo/lib/libmoveit_robot_model.so;general;/opt/ros/indigo/lib/libmoveit_transforms.so;general;/opt/ros/indigo/lib/libmoveit_robot_state.so;general;/opt/ros/indigo/lib/libmoveit_robot_trajectory.so;general;/opt/ros/indigo/lib/libmoveit_planning_interface.so;general;/opt/ros/indigo/lib/libmoveit_collision_detection.so;general;/opt/ros/indigo/lib/libmoveit_collision_detection_fcl.so;general;/opt/ros/indigo/lib/libmoveit_kinematic_constraints.so;general;/opt/ros/indigo/lib/libmoveit_planning_scene.so;general;/opt/ros/indigo/lib/libmoveit_constraint_samplers.so;general;/opt/ros/indigo/lib/libmoveit_planning_request_adapter.so;general;/opt/ros/indigo/lib/libmoveit_profiler.so;general;/opt/ros/indigo/lib/libmoveit_trajectory_processing.so;general;/opt/ros/indigo/lib/libmoveit_distance_field.so;general;/opt/ros/indigo/lib/libmoveit_kinematics_metrics.so;general;/opt/ros/indigo/lib/libmoveit_dynamics_solver.so;general;/usr/lib/x86_64-linux-gnu/libboost_iostreams.so;general;/opt/ros/indigo/lib/libgeometric_shapes.so;general;/opt/ros/indigo/lib/liboctomap.so;general;/opt/ros/indigo/lib/liboctomath.so;general;/opt/ros/indigo/lib/libeigen_conversions.so;general;/opt/ros/indigo/lib/librandom_numbers.so;general;/opt/ros/indigo/lib/libkdl_parser.so;general;/opt/ros/indigo/lib/liborocos-kdl.so;general;/opt/ros/indigo/lib/liburdf.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_world.so;general;/opt/ros/indigo/lib/librosconsole_bridge.so;general;/opt/ros/indigo/lib/libsrdfdom.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/indigo/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/indigo/lib/libroslib.so;general;/opt/ros/indigo/lib/libtf_conversions.so;general;/opt/ros/indigo/lib/libkdl_conversions.so;general;/opt/ros/indigo/lib/liborocos-kdl.so.1.3.0;general;/opt/ros/indigo/lib/libtf.so;general;/opt/ros/indigo/lib/libtf2_ros.so;general;/opt/ros/indigo/lib/libactionlib.so;general;/opt/ros/indigo/lib/libmessage_filters.so;general;/opt/ros/indigo/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/indigo/lib/libxmlrpcpp.so;general;/opt/ros/indigo/lib/libtf2.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;general;/usr/lib/liblapack.so.3gf;general;/usr/lib/libf77blas.so.3gf;general;/usr/lib/libatlas.so.3gf;
 
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/indigo/share/catkin/cmake
@@ -500,10 +503,10 @@ BLAS_Accelerate_LIBRARY-ADVANCED:INTERNAL=1
 BLAS_acml_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_acml_mp_LIBRARY
 BLAS_acml_mp_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BLAS_atlas_LIBRARY
+BLAS_atlas_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_blas_LIBRARY
 BLAS_blas_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: BLAS_blas_WORKS
-BLAS_blas_WORKS-ADVANCED:INTERNAL=1
 //Have function sgemm_
 BLAS_blas_WORKS:INTERNAL=1
 //ADVANCED property for variable: BLAS_complib.sgimath_LIBRARY
@@ -516,6 +519,10 @@ BLAS_dxml_LIBRARY-ADVANCED:INTERNAL=1
 BLAS_essl_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_f77blas_LIBRARY
 BLAS_f77blas_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: BLAS_f77blas_atlas_WORKS
+BLAS_f77blas_atlas_WORKS-ADVANCED:INTERNAL=1
+//Have function dgemm_
+BLAS_f77blas_atlas_WORKS:INTERNAL=1
 //ADVANCED property for variable: BLAS_goto2_LIBRARY
 BLAS_goto2_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: BLAS_scsl_LIBRARY

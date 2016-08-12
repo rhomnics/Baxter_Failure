@@ -1,0 +1,16 @@
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/clean_test_results.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/download_extra_data.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/doxygen.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/gtest/CMakeFiles/gtest.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/gtest/CMakeFiles/gtest_main.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/roscpp_generate_messages_cpp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/roscpp_generate_messages_lisp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/roscpp_generate_messages_py.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/rosgraph_msgs_generate_messages_py.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/run_tests.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/std_msgs_generate_messages_cpp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/std_msgs_generate_messages_lisp.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/std_msgs_generate_messages_py.dir
+/home/rhomni/bax_ws/bax_local/build/kinect_examples/CMakeFiles/tests.dir
